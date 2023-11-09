@@ -54,5 +54,4 @@
     <file>resource/image/38@2x.png</file>
     <file>resource/image/99@2x.png</file>
   </qresource>
-  <qresource prefix="新前缀"/>
 </RCC>
