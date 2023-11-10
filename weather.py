@@ -123,6 +123,7 @@ class MainWindow(QMainWindow):
         if self.setting_win is None:
             self.setting_win = SettingWindow(self)
         self.setting_win.show()
+        self.setting_win.refresh_window.connect(self.request_weather)
 
     def show_about(self):
         if self.about_win is None:
@@ -170,6 +171,8 @@ class MainWindow(QMainWindow):
 
 
 class SettingWindow(QDialog, Ui_Setting):
+    refresh_window = Signal()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -203,7 +206,7 @@ class SettingWindow(QDialog, Ui_Setting):
 
         self.sm.saveSetting()
 
-        self.parent().request_weather()
+        self.refresh_window.emit()
 
         
         
