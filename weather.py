@@ -42,8 +42,6 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._setup_ui()
-        self.ui_button.clicked.connect(self.request_weather)
-        self.ui_input.returnPressed.connect(self.request_weather)
         self.action_setting.triggered.connect(self.show_setting)
         self.action_about.triggered.connect(self.show_about)
         self.request_weather()
@@ -87,10 +85,7 @@ class MainWindow(QMainWindow):
         self.layout.setHorizontalSpacing(5)
         self.layout.setVerticalSpacing(10)
 
-        self.ui_input = QLineEdit(self.widget)
-        self.ui_input.setPlaceholderText('请输入城市名称')
-        self.ui_button = QPushButton(self.widget)
-        self.ui_button.setText('获取')
+       
         self.ui_img = QLabel(self.widget)
         
         self.ui_img.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -110,11 +105,9 @@ class MainWindow(QMainWindow):
         self.ui_info_t.setFont(font)
 
 
-        self.ui_input.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)      
+            
         self.ui_img.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Expanding)
-        self.layout.addWidget(self.ui_input, 0, 0, 1, 3)
-        self.layout.addWidget(self.ui_button, 0, 3, 1, 1)
-        self.layout.addWidget(self.ui_img, 1, 0, 1, 4)
+        self.layout.addWidget(self.ui_img, 0, 0, 1, 4)
         self.layout.addWidget(self.ui_info_t, 2, 0, 1, 4)
         self.layout.addWidget(self.ui_info, 3, 0, 1, 4)
 
@@ -136,20 +129,16 @@ class MainWindow(QMainWindow):
             self.about_win = AboutWindow(self)
         self.about_win.show()
 
-    def request_weather(self, use_input:bool = True):
+    def request_weather(self):
         
         sm = SettingManager()
         url = 'https://api.seniverse.com/v3/weather/now.json'
         key = 'STcQJfCq6C1Wb7r1l'
-        if use_input and self.ui_input.text():
-            location = self.ui_input.text()
-        else:
-            city_type = sm.getSetting('city_type')
-            city = sm.getSetting('city')
-            location = city if city_type == 'cus' else 'ip'
-        
        
-        # location = self.ui_input.text() if self.ui_input.text() else 'ip'
+        city_type = sm.getSetting('city_type')
+        city = sm.getSetting('city')
+        location = city if city_type == 'cus' else 'ip'
+        
         params = {
             'key':key,
             'location':location,
@@ -170,8 +159,7 @@ class MainWindow(QMainWindow):
             self.ui_img.setPixmap(QPixmap(f':/weather/resource/image/{code}@2x.png'))
             self.ui_info_t.setText(f'{info} {temperature}°C')
             self.ui_info.setText(path)
-            self.ui_input.setText(location_data['name'])
-            self.ui_input.clearFocus()
+
 
         except:
             self.ui_img.setPixmap(QPixmap(f':/weather/resource/image/99@2x.png'))
@@ -215,7 +203,7 @@ class SettingWindow(QDialog, Ui_Setting):
 
         self.sm.saveSetting()
 
-        self.parent().request_weather(False)
+        self.parent().request_weather()
 
         
         
