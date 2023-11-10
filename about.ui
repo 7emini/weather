@@ -7,20 +7,26 @@
     <x>0</x>
     <y>0</y>
     <width>223</width>
-    <height>133</height>
+    <height>149</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>关于</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>5</number>
+   </property>
    <item>
     <widget class="QLabel" name="label">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="text">
       <string/>
-     </property>
-     <property name="pixmap">
-      <pixmap resource="image.qrc">:/weather/resource/image/weather_s.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -32,6 +38,12 @@
    </item>
    <item>
     <widget class="QLabel" name="label_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="font">
       <font>
        <pointsize>13</pointsize>
@@ -64,7 +76,6 @@
  </widget>
  <resources>
   <include location="image.qrc"/>
-  <include location="../../Python311/Lib/site-packages/PySide6/image.qrc"/>
  </resources>
  <connections/>
 </ui>

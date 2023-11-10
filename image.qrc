@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="weather">
+    <file>resource/image/weather_b.png</file>
     <file>resource/image/weather_s.png</file>
     <file>resource/image/weather.png</file>
     <file>resource/image/0@2x.png</file>

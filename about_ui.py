@@ -18,18 +18,22 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QDialog, QLabel, QSizePolicy,
     QVBoxLayout, QWidget)
 import image_rc
-import image_rc
 
 class Ui_About(object):
     def setupUi(self, About):
         if not About.objectName():
             About.setObjectName(u"About")
-        About.resize(223, 133)
+        About.resize(223, 149)
         self.verticalLayout = QVBoxLayout(About)
+        self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.label = QLabel(About)
         self.label.setObjectName(u"label")
-        self.label.setPixmap(QPixmap(u":/weather/resource/image/weather_s.png"))
+        sizePolicy = QSizePolicy(QSizePolicy.Ignored, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy)
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setWordWrap(False)
 
@@ -37,6 +41,11 @@ class Ui_About(object):
 
         self.label_2 = QLabel(About)
         self.label_2.setObjectName(u"label_2")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label_2.sizePolicy().hasHeightForWidth())
+        self.label_2.setSizePolicy(sizePolicy1)
         font = QFont()
         font.setPointSize(13)
         self.label_2.setFont(font)

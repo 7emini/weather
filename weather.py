@@ -217,14 +217,17 @@ class AboutWindow(QDialog, Ui_About):
         palette.setColor(QPalette.Window, QColor(255, 255, 255))
         self.setPalette(palette)
 
-        img = QImageReader(':/weather/resource/image/weather.png')
-        scale = 70 / img.size().width()
+        img = QImageReader(':/weather/resource/image/weather_b.png')
+        scale = 100 / img.size().width()
         height = int(img.size().height() * scale)
-        img.setScaledSize(QSize(70, height))
+        img.setScaledSize(QSize(100, height))
         img = img.read()
         # 打开设置好的图片
         pixmap = QPixmap(img)
         self.label.setPixmap(pixmap)
+
+        # pixmap = QPixmap(":/weather/resource/image/weather_b.png").scaled(QSize(70, 70), aspectMode=Qt.AspectRatioMode.KeepAspectRatio)
+        # self.label.setPixmap(pixmap)
 
 
     
