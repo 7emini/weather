@@ -53,7 +53,7 @@ class WeatherListWidgetItem(QListWidgetItem):
             wind_scale = info['wind_scale']
             self.widget.ui_wind_label.setText(f'{wind_direction}风 {wind_scale}级 {wind_speed}km/h ')
             
-        self.setSizeHint(QSize(self.widget.sizeHint().width(), 260))
+        self.setSizeHint(QSize(self.widget.sizeHint().width(), 240))
 
 
 class Window(QMainWindow, Ui_MainWindow):

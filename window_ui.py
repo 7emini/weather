@@ -43,15 +43,6 @@ class Ui_MainWindow(object):
         self.verticalLayout = QVBoxLayout()
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(10, -1, 10, -1)
-        self.label_4 = QLabel(self.centralwidget)
-        self.label_4.setObjectName(u"label_4")
-        font = QFont()
-        font.setPointSize(15)
-        self.label_4.setFont(font)
-        self.label_4.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
-
-        self.verticalLayout.addWidget(self.label_4)
-
         self.ui_day_img = QLabel(self.centralwidget)
         self.ui_day_img.setObjectName(u"ui_day_img")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)
@@ -66,9 +57,9 @@ class Ui_MainWindow(object):
 
         self.ui_day_label = QLabel(self.centralwidget)
         self.ui_day_label.setObjectName(u"ui_day_label")
-        font1 = QFont()
-        font1.setPointSize(24)
-        self.ui_day_label.setFont(font1)
+        font = QFont()
+        font.setPointSize(24)
+        self.ui_day_label.setFont(font)
         self.ui_day_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout.addWidget(self.ui_day_label)
@@ -125,7 +116,6 @@ class Ui_MainWindow(object):
 #if QT_CONFIG(shortcut)
         self.actionAbout.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+A", None))
 #endif // QT_CONFIG(shortcut)
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"\u73b0\u5728", None))
         self.ui_day_img.setText("")
         self.ui_day_label.setText(QCoreApplication.translate("MainWindow", u"\u6674 12\u00b0C", None))
         self.ui_city_label.setText(QCoreApplication.translate("MainWindow", u"\u4e1c\u8425", None))
