@@ -1,9 +1,10 @@
 import sys
 import json
+import os
 from PySide6.QtWidgets import (QWidget, QMainWindow, QApplication, QGridLayout,
     QLabel, QPushButton, QLineEdit, QSizePolicy, QMessageBox, QMenuBar, QMenu, QDialog)
 from PySide6.QtCore import Qt, QObject, QSize, QRect, Signal, QFile, QByteArray
-from PySide6.QtGui import QGuiApplication, QPixmap, QIcon, QPalette, QColor, QFont, QAction, QImage, QImageReader
+from PySide6.QtGui import QGuiApplication, QPixmap, QIcon, QPalette, QColor, QFont, QAction, QImage, QImageReader, QShortcut, QKeySequence
 import image_rc
 import requests
 from setting_ui import Ui_Setting
@@ -11,13 +12,22 @@ from about_ui import Ui_About
 
 class SettingManager:
     def __init__(self) -> None:
-        self.config_file = QFile('./setting.json')
+        root = os.getcwd()
+        setting_file = f'{root}/setting.json'
+        print(setting_file)
+        self.config_file = QFile(setting_file)
+
         if self.config_file.exists():
             self.config_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text)
             content = self.config_file.readAll()
             self.setting = json.loads(str(content, encoding='utf-8'))
+
+            print(self.setting)
             
             self.config_file.close()
+        else:
+            print('no file')
+            raise Exception('no file')
 
 
     def getSetting(self, key):
@@ -60,18 +70,24 @@ class MainWindow(QMainWindow):
         
 
         self.action_setting = QAction(self)
-        self.action_setting.setText('设置')
+        self.action_setting.setText('城市')
+        self.action_setting.setShortcut('Ctrl+C')
 
         self.action_about = QAction(self)
         self.action_about.setText('关于')
+        self.action_about.setShortcut("Ctrl+A")
+
+
+        self.menu = QMenu(self)
+        self.menu.setTitle('设置')
+        self.menu.addActions([self.action_setting, self.action_about])
+        
 
         self.menubar = QMenuBar(self)
       
         self.setMenuBar(self.menubar)
-        
 
-        self.menubar.addAction(self.action_setting)
-        self.menubar.addAction(self.action_about)
+        self.menubar.addAction(self.menu.menuAction())
 
         
 
@@ -94,14 +110,14 @@ class MainWindow(QMainWindow):
         self.ui_info = QLabel(self.widget)
         self.ui_info.setAlignment(Qt.AlignmentFlag.AlignCenter)
         font = QFont()
-        font.setPointSize(8) 
+        font.setPointSize(15) 
         self.ui_info.setFont(font)
         self.ui_info.setStyleSheet("color: gray;")
 
         self.ui_info_t = QLabel(self.widget)
         self.ui_info_t.setAlignment(Qt.AlignmentFlag.AlignCenter)
         font = QFont()
-        font.setPointSize(20) 
+        font.setPointSize(22) 
         self.ui_info_t.setFont(font)
 
 
@@ -167,8 +183,6 @@ class MainWindow(QMainWindow):
             self.ui_info_t.setText('暂无数据')
             self.ui_info.setText('N/A')
             QMessageBox.critical(self, "提示", "请重新输入城市名称")
-        
-
 
 class SettingWindow(QDialog, Ui_Setting):
     refresh_window = Signal()
@@ -207,9 +221,6 @@ class SettingWindow(QDialog, Ui_Setting):
         self.sm.saveSetting()
 
         self.refresh_window.emit()
-
-        
-        
 
 class AboutWindow(QDialog, Ui_About):
     def __init__(self, parent=None):

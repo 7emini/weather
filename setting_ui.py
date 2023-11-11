@@ -53,6 +53,8 @@ class Ui_Setting(object):
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setOrientation(Qt.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+        self.buttonBox.button(QDialogButtonBox.Ok).setText("确定")
+        self.buttonBox.button(QDialogButtonBox.Cancel).setText("取消")
 
         self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 1)
 
