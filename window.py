@@ -43,7 +43,7 @@ class WeatherListWidgetItem(QListWidgetItem):
 
             tem_height = info['high']
             tem_low = info['low']
-            self.widget.ui_temp_label.setText(f'{tem_height}°C 到 {tem_low}°C')
+            self.widget.ui_temp_label.setText(f'{tem_low}°C 到 {tem_height}°C')
             
             humidity = info['humidity']
             self.widget.ui_hum_label.setText(f'相对湿度 {humidity}%')
