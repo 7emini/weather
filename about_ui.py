@@ -17,13 +17,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QDialog, QLabel, QSizePolicy,
     QVBoxLayout, QWidget)
-import image_rc
+import img_rc
 
 class Ui_About(object):
     def setupUi(self, About):
         if not About.objectName():
             About.setObjectName(u"About")
-        About.resize(223, 149)
+        About.resize(223, 126)
         self.verticalLayout = QVBoxLayout(About)
         self.verticalLayout.setSpacing(5)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -34,6 +34,7 @@ class Ui_About(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
+        self.label.setPixmap(QPixmap(u":/img/img/weather_s.png"))
         self.label.setAlignment(Qt.AlignCenter)
         self.label.setWordWrap(False)
 

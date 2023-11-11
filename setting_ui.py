@@ -30,21 +30,21 @@ class Ui_Setting(object):
         self.groupBox_2.setObjectName(u"groupBox_2")
         self.gridLayout_2 = QGridLayout(self.groupBox_2)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.radioButton_2 = QRadioButton(self.groupBox_2)
-        self.radioButton_2.setObjectName(u"radioButton_2")
+        self.ui_radio_cus = QRadioButton(self.groupBox_2)
+        self.ui_radio_cus.setObjectName(u"ui_radio_cus")
 
-        self.gridLayout_2.addWidget(self.radioButton_2, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.ui_radio_cus, 1, 0, 1, 1)
 
-        self.lineEdit = QLineEdit(self.groupBox_2)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.ui_city_input = QLineEdit(self.groupBox_2)
+        self.ui_city_input.setObjectName(u"ui_city_input")
 
-        self.gridLayout_2.addWidget(self.lineEdit, 1, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ui_city_input, 1, 1, 1, 1)
 
-        self.radioButton = QRadioButton(self.groupBox_2)
-        self.radioButton.setObjectName(u"radioButton")
-        self.radioButton.setChecked(True)
+        self.ui_radio_curr = QRadioButton(self.groupBox_2)
+        self.ui_radio_curr.setObjectName(u"ui_radio_curr")
+        self.ui_radio_curr.setChecked(True)
 
-        self.gridLayout_2.addWidget(self.radioButton, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.ui_radio_curr, 0, 0, 1, 1)
 
 
         self.gridLayout.addWidget(self.groupBox_2, 0, 0, 1, 1)
@@ -53,6 +53,8 @@ class Ui_Setting(object):
         self.buttonBox.setObjectName(u"buttonBox")
         self.buttonBox.setOrientation(Qt.Horizontal)
         self.buttonBox.setStandardButtons(QDialogButtonBox.Cancel|QDialogButtonBox.Ok)
+
+        
 
         self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 1)
 
@@ -67,7 +69,7 @@ class Ui_Setting(object):
     def retranslateUi(self, Setting):
         Setting.setWindowTitle(QCoreApplication.translate("Setting", u"\u8bbe\u7f6e", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("Setting", u"\u9ed8\u8ba4\u57ce\u5e02", None))
-        self.radioButton_2.setText(QCoreApplication.translate("Setting", u"\u81ea\u5b9a\u4e49", None))
-        self.radioButton.setText(QCoreApplication.translate("Setting", u"\u5f53\u524d\u57ce\u5e02", None))
+        self.ui_radio_cus.setText(QCoreApplication.translate("Setting", u"\u81ea\u5b9a\u4e49", None))
+        self.ui_radio_curr.setText(QCoreApplication.translate("Setting", u"\u5f53\u524d\u57ce\u5e02", None))
     # retranslateUi
 

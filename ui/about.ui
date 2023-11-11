@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>223</width>
-    <height>149</height>
+    <height>126</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,6 +27,9 @@
      </property>
      <property name="text">
       <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap resource="../img.qrc">:/img/img/weather_s.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
@@ -75,7 +78,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="image.qrc"/>
+  <include location="../img.qrc"/>
  </resources>
  <connections/>
 </ui>
