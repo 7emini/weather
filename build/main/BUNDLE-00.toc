@@ -1,0 +1,1 @@
+([('main', '/Users/baisha/code/weather/dist/main', 'EXECUTABLE')],)

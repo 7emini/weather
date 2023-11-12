@@ -1,5 +1,7 @@
 import requests
 import datetime
+import os
+import sys
 
 from PySide6.QtWidgets import QMainWindow, QListWidgetItem, QLabel, QWidget, QHBoxLayout, QDialog, QMessageBox, QFrame
 from PySide6.QtGui import QPixmap, QPalette, QColor
@@ -58,9 +60,15 @@ class WeatherListWidgetItem(QListWidgetItem):
 
 
 class Window(QMainWindow, Ui_MainWindow):
+
+
+
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        
 
         self.setting_win:QDialog = None
         self.about_win:QDialog = None
