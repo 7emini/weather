@@ -19,7 +19,8 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">#centralwidget{background-color:#fff}
+#ui_city_label{color:#696969}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="leftMargin">
@@ -130,6 +131,7 @@
     </property>
     <addaction name="actionCity"/>
     <addaction name="actionAbout"/>
+    <addaction name="actionRefresh"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -147,6 +149,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionRefresh">
+   <property name="text">
+    <string>刷新</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+R</string>
    </property>
   </action>
  </widget>

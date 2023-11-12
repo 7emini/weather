@@ -1,9 +1,9 @@
 import requests
 import datetime
 
-from PySide6.QtWidgets import QMainWindow, QListWidgetItem, QLabel, QWidget, QHBoxLayout, QDialog, QMessageBox
+from PySide6.QtWidgets import QMainWindow, QListWidgetItem, QLabel, QWidget, QHBoxLayout, QDialog, QMessageBox, QFrame
 from PySide6.QtGui import QPixmap, QPalette, QColor
-from PySide6.QtCore import QSize
+from PySide6.QtCore import Qt, QSize
 from window_ui import Ui_MainWindow
 from table_item_ui import Ui_Form
 
@@ -15,6 +15,7 @@ class TableItem(QWidget, Ui_Form):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.setupUi(self)
+        self.frame.setFrameShape(QFrame.Shape.NoFrame)
 
 class WeatherListWidgetItem(QListWidgetItem):
 
@@ -66,6 +67,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
         self.actionCity.triggered.connect(self.show_setting_page)
         self.actionAbout.triggered.connect(self.show_about_page)
+        self.actionRefresh.triggered.connect(self.request_weather)
 
         # palette = QPalette()
         # palette.setColor(QPalette.Window, QColor(255, 255, 255))

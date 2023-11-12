@@ -23,17 +23,20 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(320, 226)
+        Form.resize(320, 235)
         self.horizontalLayout = QHBoxLayout(Form)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.frame = QFrame(Form)
         self.frame.setObjectName(u"frame")
+        self.frame.setStyleSheet(u"#frame {border-bottom: 0px solid #ccc; border-top:1px solid #F0F0F0;}\n"
+"\n"
+"#ui_hum_label, #ui_wind_label{color:#696969}")
         self.frame.setFrameShape(QFrame.StyledPanel)
         self.frame.setFrameShadow(QFrame.Raised)
         self.gridLayout = QGridLayout(self.frame)
         self.gridLayout.setObjectName(u"gridLayout")
-        self.gridLayout.setContentsMargins(0, 10, 0, 10)
+        self.gridLayout.setContentsMargins(10, 10, 10, 10)
         self.ui_wind_label = QLabel(self.frame)
         self.ui_wind_label.setObjectName(u"ui_wind_label")
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Maximum)

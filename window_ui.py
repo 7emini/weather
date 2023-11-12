@@ -34,9 +34,12 @@ class Ui_MainWindow(object):
         self.actionCity.setObjectName(u"actionCity")
         self.actionAbout = QAction(MainWindow)
         self.actionAbout.setObjectName(u"actionAbout")
+        self.actionRefresh = QAction(MainWindow)
+        self.actionRefresh.setObjectName(u"actionRefresh")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.centralwidget.setStyleSheet(u"")
+        self.centralwidget.setStyleSheet(u"#centralwidget{background-color:#fff}\n"
+"#ui_city_label{color:#696969}")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, -1, 0, 0)
@@ -100,6 +103,7 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menu.menuAction())
         self.menu.addAction(self.actionCity)
         self.menu.addAction(self.actionAbout)
+        self.menu.addAction(self.actionRefresh)
 
         self.retranslateUi(MainWindow)
 
@@ -115,6 +119,10 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"\u5173\u4e8e", None))
 #if QT_CONFIG(shortcut)
         self.actionAbout.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+A", None))
+#endif // QT_CONFIG(shortcut)
+        self.actionRefresh.setText(QCoreApplication.translate("MainWindow", u"\u5237\u65b0", None))
+#if QT_CONFIG(shortcut)
+        self.actionRefresh.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+R", None))
 #endif // QT_CONFIG(shortcut)
         self.ui_day_img.setText("")
         self.ui_day_label.setText(QCoreApplication.translate("MainWindow", u"\u6674 12\u00b0C", None))
