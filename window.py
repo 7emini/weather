@@ -126,7 +126,11 @@ class Window(QMainWindow, Ui_MainWindow):
 
             r = requests.get(url=daily_url, params=params)
             data = r.json()
+            
             dayil_info = data['results'][0]['daily']
+            
+            self.listWidget.clear()
+            # self.listWidget.clearContents()
 
             for info in dayil_info:
                 item = WeatherListWidgetItem(info)
@@ -136,9 +140,7 @@ class Window(QMainWindow, Ui_MainWindow):
 
 
         except:
-            self.ui_img.setPixmap(QPixmap(f':/img/img/99@2x.png'))
-            self.ui_info_t.setText('暂无数据')
-            self.ui_info.setText('N/A')
+            
             QMessageBox.critical(self, "提示", "请重新输入城市名称")
         
 
