@@ -139,16 +139,10 @@
    <property name="text">
     <string>城市</string>
    </property>
-   <property name="shortcut">
-    <string>Meta+C</string>
-   </property>
   </action>
   <action name="actionAbout">
    <property name="text">
     <string>关于</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionRefresh">

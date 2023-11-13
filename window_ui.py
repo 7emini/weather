@@ -113,13 +113,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u5929\u6c14", None))
         self.actionCity.setText(QCoreApplication.translate("MainWindow", u"\u57ce\u5e02", None))
-#if QT_CONFIG(shortcut)
-        self.actionCity.setShortcut(QCoreApplication.translate("MainWindow", u"Meta+C", None))
-#endif // QT_CONFIG(shortcut)
         self.actionAbout.setText(QCoreApplication.translate("MainWindow", u"\u5173\u4e8e", None))
-#if QT_CONFIG(shortcut)
-        self.actionAbout.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+A", None))
-#endif // QT_CONFIG(shortcut)
         self.actionRefresh.setText(QCoreApplication.translate("MainWindow", u"\u5237\u65b0", None))
 #if QT_CONFIG(shortcut)
         self.actionRefresh.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+R", None))
