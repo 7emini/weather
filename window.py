@@ -5,7 +5,7 @@ import sys
 
 from PySide6.QtWidgets import QMainWindow, QListWidgetItem, QLabel, QWidget, QHBoxLayout, QDialog, QMessageBox, QFrame
 from PySide6.QtGui import QPixmap, QPalette, QColor
-from PySide6.QtCore import Qt, QSize
+from PySide6.QtCore import Qt, QSize, QThread, Signal
 from window_ui import Ui_MainWindow
 from table_item_ui import Ui_Form
 
@@ -21,7 +21,7 @@ class TableItem(QWidget, Ui_Form):
 
 class WeatherListWidgetItem(QListWidgetItem):
 
-    def __init__(self, info:[] = None):
+    def __init__(self, info = None):
         super().__init__()
         self.widget = TableItem()
         if info:
@@ -59,54 +59,20 @@ class WeatherListWidgetItem(QListWidgetItem):
         self.setSizeHint(QSize(self.widget.sizeHint().width(), 240))
 
 
-class Window(QMainWindow, Ui_MainWindow):
+class RequestThred(QThread):
 
+    successed_signal = Signal(dict, dict)
+    failed_signal = Signal(str)
 
-
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-
-        
-
-        self.setting_win:QDialog = None
-        self.about_win:QDialog = None
-
-        self.actionCity.triggered.connect(self.show_setting_page)
-        self.actionAbout.triggered.connect(self.show_about_page)
-        self.actionRefresh.triggered.connect(self.request_weather)
-
-        # palette = QPalette()
-        # palette.setColor(QPalette.Window, QColor(255, 255, 255))
-        # self.setPalette(palette)
-
-       
-        
-        # 绑定点击槽函数 点击显示对应item中的name
-        self.listWidget.itemClicked.connect(lambda item: print(item))
-
-        self.request_weather()
-    
-    def show_setting_page(self):
-        if self.setting_win is None:
-            self.setting_win = SettingWindow(self)
-        self.setting_win.show()
-        self.setting_win.refresh_window.connect(self.request_weather)
-
-    def show_about_page(self):
-        if self.about_win is None:
-            self.about_win = AboutWindow(self)
-        self.about_win.show()
-
+    def __init__(self):
+        super().__init__()
 
     def request_weather(self):
-        
         sm = SettingManager()
         now_url = 'https://api.seniverse.com/v3/weather/now.json'
         daily_url = 'https://api.seniverse.com/v3/weather/daily.json'
         key = 'STcQJfCq6C1Wb7r1l'
-       
+        
         city_type = sm.getSetting('city_type')
         city = sm.getSetting('city')
         location = city if city_type == 'cus' else 'ip'
@@ -121,38 +87,95 @@ class Window(QMainWindow, Ui_MainWindow):
         }
         try:
             r = requests.get(url=now_url, params=params)
-            data = r.json()
-            weather_data = data['results'][0]['now']
-            location_data = data['results'][0]['location']
-            code = weather_data['code']
-            temperature = weather_data['temperature']
-            info = weather_data['text']
-            path = location_data['path']
-            
-
-            self.ui_day_img.setPixmap(QPixmap(f':/img/img/{code}@2x.png'))
-            self.ui_day_label.setText(f'{info} {temperature}°C')
-            self.ui_city_label.setText(path)
-
+            data_c = r.json()
             r = requests.get(url=daily_url, params=params)
-            data = r.json()
-            
-            dayil_info = data['results'][0]['daily']
-            
-            self.listWidget.clear()
-            # self.listWidget.clearContents()
-
-            for info in dayil_info:
-                item = WeatherListWidgetItem(info)
-                # 在listWidget中加入两个自定义的item
-                self.listWidget.addItem(item)
-                self.listWidget.setItemWidget(item, item.widget)
-
-
+            data_d = r.json()
+            self.successed_signal.emit(data_c, data_d)
         except:
-            
-            QMessageBox.critical(self, "提示", "请重新输入城市名称")
+            self.successed_signal.emit("提示", "请重新输入城市名称")
+
+    
+    def run(self) -> None:
+        self.request_weather()
+
+class Window(QMainWindow, Ui_MainWindow):
+
+
+
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+
+        self.request_thred = RequestThred()
+        self.request_thred.successed_signal.connect(self.set_window_view)
+        self.request_thred.failed_signal.connect(self.show_error_msg)
+
+        self.setting_win:QDialog = None
+        self.about_win:QDialog = None
+
+        self.actionCity.triggered.connect(self.show_setting_page)
+        self.actionAbout.triggered.connect(self.show_about_page)
+        self.actionRefresh.triggered.connect(self.request_weather)
+
+
+        # 绑定点击槽函数 点击显示对应item中的name
+        self.listWidget.itemClicked.connect(lambda item: print(item))
+
+        self.request_weather()
+
+    
+    def request_weather(self):
+        self.request_thred.run()
+    
+    def show_error_msg(self, message):
+        QMessageBox.critical(self, message)
+        self.request_thred.quit()
+
+    
+
+    def set_window_view(self, data_c, data_d):
+        weather_data = data_c['results'][0]['now']
+        location_data = data_c['results'][0]['location']
+        code = weather_data['code']
+        temperature = weather_data['temperature']
+        info = weather_data['text']
+        path = location_data['path']
         
+
+        self.ui_day_img.setPixmap(QPixmap(f':/img/img/{code}@2x.png'))
+        self.ui_day_label.setText(f'{info} {temperature}°C')
+        self.ui_city_label.setText(path)
+
+        
+        
+        dayil_info = data_d['results'][0]['daily']
+        
+        self.listWidget.clear()
+        # self.listWidget.clearContents()
+
+        for info in dayil_info:
+            item = WeatherListWidgetItem(info)
+            # 在listWidget中加入两个自定义的item
+            self.listWidget.addItem(item)
+            self.listWidget.setItemWidget(item, item.widget)
+        
+        self.request_thred.quit()
+
+    
+    def show_setting_page(self):
+        if self.setting_win is None:
+            self.setting_win = SettingWindow(self)
+        self.setting_win.show()
+        self.setting_win.refresh_window.connect(self.request_weather)
+
+    def show_about_page(self):
+        if self.about_win is None:
+            self.about_win = AboutWindow(self)
+        self.about_win.show()
+
+
+         
 
 
 
